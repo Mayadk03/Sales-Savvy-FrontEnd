@@ -6,6 +6,6 @@ export default function App() {
   return (
     <BrowserRouter>
         <AppRoutess />
-        </BrowserRouter>
+    </BrowserRouter>
   )
 }

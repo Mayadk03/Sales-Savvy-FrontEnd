@@ -25,7 +25,7 @@ const  handleSignUp = async(event) => {
     if (response.ok) {
       console.log("User registered successfully:",data)
       setSuccessMessage(data.message)
-      //window.location.href='/register'
+      window.location.href='/'
       setUsername("")
       setEmail("")
       setPassword("")

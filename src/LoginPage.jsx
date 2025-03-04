@@ -12,7 +12,7 @@ export default function LoginPage() {
     const handleSignIn = async(e)=> {
         e.preventDefault();
         try {
-            const response = await fetch("http://localhost:9090/api/user/login" , {
+            const response = await fetch("http://localhost:9090/api/auth/login" , {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -22,14 +22,15 @@ export default function LoginPage() {
             });
             const data = await response.json();
 
-            if(response.ok) {
-                setSuccessMessage(data.message)
+            if(!response.ok) {
+                throw new Error(data.error||"Login failed. please try again.")
             }
+            setSuccessMessage(data.message)
             if(data.role === 'CUSTOMER') {
                     navigate("/customerhome")
                 }
              else {
-                    navigate('/')
+                    navigate('/adminhome')
                 }
             
         } catch (error) {
