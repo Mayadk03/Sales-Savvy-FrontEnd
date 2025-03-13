@@ -1,0 +1,61 @@
+/* Cart Icon Container */
+.cart-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+  transition: transform 0.2s ease-in-out;
+}
+
+.cart-icon:hover {
+  transform: scale(1.1);
+}
+
+/* SVG Cart Icon */
+.cart-icon-svg {
+  width: 28px;
+  height: 28px;
+  color: white;
+  transition: color 0.3s ease-in-out;
+}
+
+.cart-icon:hover .cart-icon-svg {
+  color: #ffd700; /* Golden color on hover */
+}
+
+/* Cart Badge */
+.cart-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background: #ff4d4d;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .cart-icon {
+    padding: 5px;
+  }
+
+  .cart-icon-svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .cart-badge {
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+  }
+}

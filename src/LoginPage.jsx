@@ -1,72 +1,99 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom';
+
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import './assets/Styles/LoginPage.css'
 
 export default function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-    const [username , setUsername] = useState("");
-    const [password, setPassword] = useState("");
-     const [successMessage,setSuccessMessage]= useState(null)
-      const [error, setError] = useState(null)
-      const navigate = useNavigate();
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    setError(null);
 
-    const handleSignIn = async(e)=> {
-        e.preventDefault();
-        try {
-            const response = await fetch("http://localhost:9090/api/auth/login" , {
-                method: "POST",
-                headers: {
-                    "content-type": "application/json"
-                },
-                body: JSON.stringify({username,password}),
-                credentials: 'include'
-            });
-            const data = await response.json();
-
-            if(!response.ok) {
-                throw new Error(data.error||"Login failed. please try again.")
-            }
-            setSuccessMessage(data.message)
-            if(data.role === 'CUSTOMER') {
-                    navigate("/customerhome")
-                }
-             else {
-                    navigate('/adminhome')
-                }
-            
-        } catch (error) {
-            setError(error.error)
-        }
+    if (!username.trim() || !password.trim()) {
+      setError("Username and password are required");
+      return;
     }
-  return (
-    <div>
-      <form onSubmit={handleSignIn}>
-      <label htmlFor='username'>Username</label>
-        <input 
-        type='text' 
-        required 
-        placeholder='Enter username....'
-        id='username'
-        value={username}
-        onChange={(e)=>setUsername(e.target.value)}
-        >
-        </input>
-        <br></br>
 
-        <label htmlFor='password'>Password</label>
-        <input 
-        type='password' 
-        required 
-        value={password}
-        onChange={(e)=>setPassword(e.target.value)}
-        placeholder='Enter password....'
-        id='password'>
-        </input>
-        <br></br>
-        <button type='submit'>SignIn Here</button>
-        {error && <p style={{color: "red"}}>{error}</p>}
-        {successMessage && <p style={{color: 'green'}}>{successMessage}</p>}
-      </form>
-        <p>New User ? <a href='/register'>SignUp here</a></p>
+    try {
+      const response = await fetch("http://localhost:9090/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+        body: JSON.stringify({ username, password }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        if (data.role === "CUSTOMER") {
+          navigate("/customerhome");
+        } else if (data.role === "ADMIN") {
+          navigate("/adminhome");
+        } else {
+          navigate("/"); // Redirect to a default page if role is unknown
+        }
+      } else {
+        const errorMessage =
+          data.error || "Something went wrong. Please try again.";
+        throw new Error(errorMessage);
+      }
+    } catch (err) {
+      setError(err.message || "Unexpected error occurred");
+    }
+  };
+
+  return (
+    <div className="page-layout">
+      <div className="page-container">
+        <div className="form-container">
+          <h1 className="form-title">Login</h1>
+          {error && <p className="error-message">{error}</p>}
+          <form onSubmit={handleSignIn} className="form-content">
+            <div className="form-group">
+              <label htmlFor="username" className="form-label">
+                Username
+              </label>
+              <input
+                id="username"
+                type="text"
+                placeholder="Enter your username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                className="form-input"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="password" className="form-label">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="form-input"
+              />
+            </div>
+            <button type="submit" className="form-button">
+              Sign In
+            </button>
+          </form>
+          <div className="form-footer">
+            <a href="/register" className="form-link">
+              New User? Sign up here
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
-  )
+  );
 }

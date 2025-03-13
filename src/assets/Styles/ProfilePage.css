@@ -1,0 +1,37 @@
+.profile-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  h2 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .profile-details {
+    text-align: left;
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  .profile-details p {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #555;
+  }
+  
+  .profile-details strong {
+    color: #000;
+  }
+  
+  p[style*="color: red"] {
+    font-weight: bold;
+  }
+  
