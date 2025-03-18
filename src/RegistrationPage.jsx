@@ -1,5 +1,7 @@
+// RegistrationPage.jsx
 import React, { useState } from 'react';
-import './assets/Styles/RegistrationPage.css';
+import './styles.css';
+import { useNavigate } from 'react';
 
 export default function RegistrationPage() {
   const [username, setUsername] = useState('');
@@ -36,14 +38,13 @@ export default function RegistrationPage() {
   };
 
   return (
-    <div className='page-layoutr'>
-      <div className="page-containerr">
-      <div className="form-containerr">
-        <h1 className="form-titler">Register</h1>
-        {error && <p className="error-messager">{error}</p>}
-        <form onSubmit={handleSignUp} className="form-contentr">
-          <div className="form-groupr">
-            <label htmlFor="username" className="form-labelr">Username</label>
+    <div className="page-container">
+      <div className="form-container">
+        <h1 className="form-title">Register</h1>
+        {error && <p className="error-message">{error}</p>}
+        <form onSubmit={handleSignUp} className="form-content">
+          <div className="form-group">
+            <label htmlFor="username" className="form-label">Username</label>
             <input
               id="username"
               type="text"
@@ -51,11 +52,11 @@ export default function RegistrationPage() {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
-              className="form-inputr"
+              className="form-input"
             />
           </div>
-          <div className="form-groupr">
-            <label htmlFor="email" className="form-labelr">Email</label>
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">Email</label>
             <input
               id="email"
               type="email"
@@ -63,11 +64,11 @@ export default function RegistrationPage() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="form-inputr"
+              className="form-input"
             />
           </div>
-          <div className="form-groupr">
-            <label htmlFor="password" className="form-labelr">Password</label>
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">Password</label>
             <input
               id="password"
               type="password"
@@ -75,31 +76,30 @@ export default function RegistrationPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              className="form-inputr"
+              className="form-input"
             />
           </div>
-          <div className="form-groupr">
-            <label htmlFor="role" className="form-labelr">Role</label>
+          <div className="form-group">
+            <label htmlFor="role" className="form-label">Role</label>
             <select
               id="role"
               value={role}
               onChange={(e) => setRole(e.target.value)}
               required
-              className="form-selectr"
+              className="form-select"
             >
               <option value="" disabled>Select your role</option>
               <option value="CUSTOMER">Customer</option>
-              <option value="ADMIN">Admin</option>
+              <option value="ADMIN">ADMIN</option>
             </select>
           </div>
-          <button type="submit" className="form-buttonr">Sign Up</button>
+          <button type="submit" className="form-button">Sign Up</button>
         </form>
-        <p className="form-footerr">
+        <p className="form-footer">
           Already a user?{' '}
-          <a href="/" className="form-linkr">Log in here</a>
+          <a href="/" className="form-link">Log in here</a>
         </p>
       </div>
-    </div>
     </div>
   );
 }

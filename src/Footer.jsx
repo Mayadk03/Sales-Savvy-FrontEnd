@@ -1,5 +1,7 @@
+// Footer.jsx
 import React from 'react';
-import './assets/Styles/Footer.css'
+import './styles.css';
+
 export function Footer() {
   return (
     <footer className="footer">

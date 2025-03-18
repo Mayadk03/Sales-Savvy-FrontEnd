@@ -1,5 +1,6 @@
+// CategoryNavigation.jsx
 import React from 'react';
-import './assets/Styles/CategoryNavigation.css'
+import './styles.css';
 
 export function CategoryNavigation({ onCategoryClick }) {
   // Static categories list

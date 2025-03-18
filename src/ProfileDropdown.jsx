@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import useravatar from './assets/Logos/useravatar.png'; 
-import './assets/Styles/ProfileDropdown.css';
-
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
+import useravatar from './useravatar.png';
+import './styles.css';
 export function ProfileDropdown({ username }) {
   const [isOpen, setIsOpen] = useState(false);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate(); // Initialize useNavigate hook
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -13,13 +12,13 @@ export function ProfileDropdown({ username }) {
   const handleLogout = async () => {
     try {
       const response = await fetch('http://localhost:9090/api/auth/logout', {
-        method: 'POST', 
-        credentials: 'include', 
+        method: 'POST', // Use POST as logout often involves session clearing
+        credentials: 'include', // Include credentials like cookies for authentication
       });
 
       if (response.ok) {
         console.log('User successfully logged out');
-        navigate('/');
+        navigate('/'); // Redirect to login page
       } else {
         console.error('Failed to log out');
       }
@@ -28,7 +27,7 @@ export function ProfileDropdown({ username }) {
     }
   };
   const handleOrdersClick = () => {
-    navigate('/orders'); 
+    navigate('/orders'); // Navigate to the orders route
   };
   return (
     <div className="profile-dropdown">
@@ -37,14 +36,14 @@ export function ProfileDropdown({ username }) {
           src={useravatar}
           alt="User Avatar"
           className="user-avatar"
-          onError={(e) => { e.target.src = 'fallback-logo.png'; }} 
+          onError={(e) => { e.target.src = 'fallback-logo.png'; }} // Fallback for image error
         />
-        <span className="username">{username || 'Guest'}</span>
+        <span className="username">{username || 'Guest'}</span> {/* Display username */}
       </button>
       {isOpen && (
         <div className="dropdown-menu">
           <a href="#">Profile</a>
-          <a onClick={handleOrdersClick}>Orders</a>
+          <a onClick={handleOrdersClick}>Orders</a> {/* Handle Orders Click */}
           <button className="profile-button" onClick={handleLogout}>
             Logout
           </button>

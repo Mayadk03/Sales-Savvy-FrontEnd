@@ -35,7 +35,7 @@ export default function LoginPage() {
         } else if (data.role === "ADMIN") {
           navigate("/admindashboard");
         } else {
-          navigate("/"); // Redirect to a default page if role is unknown
+          navigate("/admin"); // Redirect to a default page if role is unknown
         }
       } else {
         const errorMessage =
@@ -49,9 +49,9 @@ export default function LoginPage() {
 
   return (
     <div className="page-layout">
-      <div className="page-container">
+      <div className="page-container1">
         <div className="form-container">
-          <h1 className="form-title">Login</h1>
+          <h1 className="form-title">Admin Login</h1>
           {error && <p className="error-message">{error}</p>}
           <form onSubmit={handleSignIn} className="form-content">
             <div className="form-group">
@@ -61,7 +61,7 @@ export default function LoginPage() {
               <input
                 id="username"
                 type="text"
-                placeholder="Enter your username"
+                placeholder="Enter Admin username"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -75,7 +75,7 @@ export default function LoginPage() {
               <input
                 id="password"
                 type="password"
-                placeholder="Enter your password"
+                placeholder="Enter Admin password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
@@ -83,12 +83,12 @@ export default function LoginPage() {
               />
             </div>
             <button type="submit" className="form-button">
-              Sign In
+              Enter As Admin
             </button>
           </form>
           <div className="form-footer">
-            <a href="/register" className="form-link">
-              New User? Sign up here
+            <a href="/" className="form-link">
+              Not Admin? Login As USer ! 
             </a>
           </div>
         </div>

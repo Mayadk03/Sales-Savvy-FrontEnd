@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { CartIcon } from './CartIcon';
 import { ProfileDropdown } from './ProfileDropdown';
+import './styles.css';
 import Logo from './Logo';
-import './assets/Styles/Header.css';
 
 export function Header({ cartCount, username }) {
   return (

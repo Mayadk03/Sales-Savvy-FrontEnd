@@ -1,23 +1,22 @@
-
 import React, { useEffect, useState } from "react";
+import "./CartPage.css";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { useNavigate } from "react-router-dom";
-import './assets/Styles/CartPage.css'
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [overallPrice, setOverallPrice] = useState(0);
   const [username, setUsername] = useState("");
   const [subtotal, setSubtotal] = useState(0);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate(); // To redirect users after successful payment
 
   // Fetch cart items on component load
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
         const response = await fetch("http://localhost:9090/api/cart/items", {
-          credentials: "include", 
+          credentials: "include", // Include session cookie
         });
         if (!response.ok) throw new Error("Failed to fetch cart items");
         const data = await response.json();
@@ -120,22 +119,23 @@ const CartPage = () => {
 
       // Open Razorpay checkout interface
       const options = {
-        key: "rzp_test_LqWBBDbgwot5lh", 
-        amount: subtotal * 100, 
+        key: "rzp_test_AgActsTHEMFmfb", 
+        amount: subtotal * 100, // Razorpay expects amount in paise
         currency: "INR",
         name: "SalesSavvy",
         description: "Test Transaction",
         order_id: razorpayOrderId,
         handler: async function (response) {
           try {
+            // Payment success, verify on backend
             const verifyResponse = await fetch("http://localhost:9090/api/payment/verify", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               credentials: "include",
               body: JSON.stringify({
-                razorpayOrderId: response.razorpay_order_id, 
-                razorpayPaymentId: response.razorpay_payment_id, 
-                razorpaySignature: response.razorpay_signature, 
+                razorpayOrderId: response.razorpay_order_id, // Ensure key matches backend
+                razorpayPaymentId: response.razorpay_payment_id, // Ensure key matches backend
+                razorpaySignature: response.razorpay_signature, // Ensure key matches backend
               }),
             });
             const result = await verifyResponse.text();
